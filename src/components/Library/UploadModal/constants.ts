@@ -7,12 +7,25 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ];
 const ACCEPTED_SONG_TYPES = [".mp3"];
+
 export const defaultValuesUploadModal = [
-  { name: "author" },
-  { name: "title" },
-  { name: "song", type: "file", accept: ".mp3" },
-  { name: "image", type: "file", accept: ACCEPTED_IMAGE_TYPES.join() },
+  { placeholder: "Author", name: "author" },
+  { placeholder: "Title", name: "title" },
+  { placeholder: "Song", name: "song", type: "file" },
+  {
+    placeholder: "Image",
+    name: "image",
+    type: "file",
+    accept: ACCEPTED_IMAGE_TYPES.join(),
+  },
 ];
+export const defaultValuesV2 = {
+  author: "",
+  title: "",
+  song: null,
+  image: null,
+};
+
 export const FormSchema = z.object({
   title: z.string().min(2, {
     message: "Title must be at least 2 characters.",
@@ -23,10 +36,9 @@ export const FormSchema = z.object({
   song: z
     .any()
     .refine((files: FileList) => files?.length == 1, "Song is required.")
-    .refine(
-      (files: FileList) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max file size is 5MB.`
-    )
+    .refine((files: any) => {
+      return files?.[0]?.size <= MAX_FILE_SIZE;
+    }, `Max file size is 5MB.`)
     .refine(
       (files: FileList) => ACCEPTED_SONG_TYPES.includes(files?.[0]?.type),
       ".mp3 files are accepted."
@@ -34,7 +46,6 @@ export const FormSchema = z.object({
   image: z
     .any()
     .refine((files: FileList) => {
-      console.log(`THIS IS   files:`, files);
       return files?.length == 1, "Image is required.";
     })
     .refine(

@@ -15,6 +15,7 @@ interface BasicModalProps {
   children: React.ReactNode;
   isOpen: boolean;
   title: string;
+  description?: string;
   onChange(params: boolean): void;
 }
 
@@ -23,15 +24,14 @@ export function BasicModal({
   title,
   isOpen,
   onChange,
+  description,
 }: BasicModalProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onChange}>
+    <Dialog open={isOpen} modal  onOpenChange={onChange}>
       <DialogContent className="sm:max-w-[425px] bg-neutral-900 text-slate-100  ">
-        <DialogHeader>
+        <DialogHeader className="items-center">
           <DialogTitle> {title} </DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you`re done.
-          </DialogDescription>
+          {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
         <div className="grid gap-4 py-4">{children}</div>
         <DialogFooter>

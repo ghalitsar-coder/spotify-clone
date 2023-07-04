@@ -31,6 +31,8 @@ const Header = ({ children, className }: HeaderProps) => {
     router.refresh();
     if (error) {
       toast.error(error.message);
+    }else {
+      toast.success("Logout successfully")
     }
   };
   const handleRouteNavigation = (name: string) => {

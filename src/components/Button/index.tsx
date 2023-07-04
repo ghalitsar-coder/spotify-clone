@@ -1,8 +1,10 @@
 import React, { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
+import { GrRefresh } from "react-icons/gr";
+import IsLoadingButton from "./isLoadingButton";
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, className, ...props }, ref) => {
+  ({ children, className, isLoading, ...props }, ref) => {
     return (
       <button
         className={twMerge(
@@ -12,7 +14,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
         ref={ref}
       >
-        {children}
+        {isLoading ? <IsLoadingButton /> : children}
       </button>
     );
   }

@@ -2,14 +2,21 @@
 import React, { ReactNode, useMemo } from "react";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
-
 import { usePathname } from "next/navigation";
+
+import { RoutesProps } from "@/types/components/Sidebar";
+import { Song } from "@/types/stripe";
+
 import Box from "../Box";
 import SidebarItem from "./SidebarItem";
-import { RoutesProps } from "@/types/components/Sidebar";
 import Library from "../Library";
 
-const Sidebar = ({ children }: { children: ReactNode }) => {
+interface ISidebar {
+  children: ReactNode;
+  songs: Song[];
+}
+
+const Sidebar = ({ children, songs }: ISidebar) => {
   const pathname = usePathname();
   const routes: RoutesProps[] = useMemo(
     () => [
@@ -39,7 +46,7 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
           </div>
         </Box>
         <Box className="overflow-y-auto h-full">
-          <Library />
+          <Library songs={songs} />
         </Box>
       </div>
       <main className="h-full flex-1 overflow-y-auto py-2">{children}</main>
