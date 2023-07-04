@@ -31,7 +31,9 @@ export function InputReactHookForm({ form, onSubmit }: FormUpload) {
 
   // function onSubmit(data: z.infer<typeof FormSchema>) {
   //   toast.error("You submitted the following values:");
+
   // }
+  return null;
 
   return (
     <Form {...form}>
@@ -46,7 +48,7 @@ export function InputReactHookForm({ form, onSubmit }: FormUpload) {
                 <FormItem>
                   <FormLabel className="capitalize">{item.name}</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...item} {...field} />
+                    {/* <Input {...item} {...field} /> */}
                   </FormControl>
                   <FormDescription>
                     This is your public display name.
