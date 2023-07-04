@@ -32,7 +32,6 @@ const LikeButton: React.FC<ILikeButton> = ({ songId }) => {
       return;
     }
     const fetchData = async () => {
-      console.log("user ", user);
       try {
         const { data, error } = await supabaseClient
           .from("liked_songs")
@@ -40,15 +39,12 @@ const LikeButton: React.FC<ILikeButton> = ({ songId }) => {
           .eq("user_id", user?.id)
           .eq("song_id", songId)
           .single();
-          
+
         if (error) {
           throw error;
         }
         setIsLiked(true);
-      } catch (err: any) {
-        console.log("HELO WORLD ERROR");
-        toast.error("Something went wrong", err);
-      }
+      } catch (err: any) {}
     };
     fetchData();
   }, [songId, supabaseClient, user?.id]);

@@ -8,6 +8,8 @@ import { SIGN_IN } from "@/constants";
 import useUploadModal from "@/utils/hooks/useUploadModal ";
 import { Song } from "@/types/stripe";
 import MediaItem from "./MediaItem";
+import { useOnPlay } from "@/utils/hooks/useOnPlay";
+import useSubscribeModal from "@/utils/hooks/useSubscribeModal";
 
 interface ILibrary {
   songs: Song[];
@@ -15,16 +17,23 @@ interface ILibrary {
 
 const Library: React.FC<ILibrary> = ({ songs }) => {
   const { onOpen } = useAuthModal();
+  const { onOpen: onOpenSubscribeModal } = useSubscribeModal();
   const { onOpen: onOpenUploadModal } = useUploadModal();
-  const { user } = useUser();
+
+  const { user, subscription } = useUser();
+  const onPlay = useOnPlay(songs);
 
   const onClick = () => {
     if (!user) {
       onOpen(SIGN_IN);
-    } else {
-      // TODO: check subscription user
-      onOpenUploadModal();
+      return;
     }
+    if (!subscription) {
+      onOpenSubscribeModal();
+      return;
+    }
+
+    onOpenUploadModal();
   };
   return (
     <div className={`flex flex-col`}>
@@ -45,7 +54,11 @@ const Library: React.FC<ILibrary> = ({ songs }) => {
       </div>
       <div className="flex flex-col gap-y-2 mt-4 px-3 text-white">
         {songs?.map((item) => (
-          <MediaItem onClick={() => {}} data={item} key={item.id} />
+          <MediaItem
+            onClick={(id: string) => onPlay(id)}
+            data={item}
+            key={item.id}
+          />
         ))}
       </div>
     </div>

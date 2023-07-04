@@ -46,7 +46,6 @@ const UploadModal = () => {
         return;
       }
 
-      // TODO: Upload Song
       const { data: songData } = await uploadFile({
         file: songFile,
         setIsLoading,
@@ -55,7 +54,6 @@ const UploadModal = () => {
         fileFor: "song",
       });
 
-      // TODO: Upload Image
       const { data: imageData } = await uploadFile({
         file: imageFile,
         setIsLoading,
@@ -64,7 +62,6 @@ const UploadModal = () => {
         fileFor: "image",
       });
 
-      // TODO: Upload to supabase
       const { error: supabaseError } = await supabaseClient
         .from("songs")
         .insert({

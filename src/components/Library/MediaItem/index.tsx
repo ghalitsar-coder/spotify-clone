@@ -1,22 +1,25 @@
 import { Song } from "@/types/stripe";
 import { useLoadImage } from "@/utils/hooks/useLoadImage";
+import usePlayer from "@/utils/hooks/usePlayer";
 import Image from "next/image";
 import React from "react";
 
 interface IMediaItem {
   data: Song;
-  onClick: (id: string) => void;
-  playing: boolean;
+  onClick?: (id: string) => void;
+  playing?: boolean;
 }
 
 const MediaItem: React.FC<IMediaItem> = ({ data, onClick, playing }) => {
   const imageUrl = useLoadImage(data);
+  const player = usePlayer();
 
   const handleClick = () => {
     if (onClick) {
       return onClick(data.id);
     }
     // TODO: Default turn on player
+    // return player.setId(data.id);
   };
 
   return (

@@ -11,7 +11,7 @@ const ACCEPTED_SONG_TYPES = [".mp3"];
 export const defaultValuesUploadModal = [
   { placeholder: "Author", name: "author" },
   { placeholder: "Title", name: "title" },
-  { placeholder: "Song", name: "song", type: "file" },
+  { placeholder: "Song", name: "song", type: "file", accept: [".mp3"] },
   {
     placeholder: "Image",
     name: "image",

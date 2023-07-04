@@ -31,6 +31,7 @@ import {
 } from "@/components/DropDown";
 import Button from "@/components/Button";
 import { FaUserAlt } from "react-icons/fa";
+import Link from "next/link";
 
 export function DropDownProfile() {
   return (
@@ -46,7 +47,9 @@ export function DropDownProfile() {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
+            <Link href={"/account"}>
+              <span>Profile</span>
+            </Link>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
