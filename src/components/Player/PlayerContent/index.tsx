@@ -133,7 +133,7 @@ const PlayerContent: React.FC<IPlayerContent> = ({ song, songUrl }) => {
             size={34}
             className="cursor-pointer"
           />
-          <Slider value={[volume]} onChange={(val) => setVolume(val)} />
+          <Slider value={[volume]} onChange={(val: any) => setVolume(val)} />
         </div>
       </div>
     </div>
